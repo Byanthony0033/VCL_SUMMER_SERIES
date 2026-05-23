@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VCL Summer Series</title>
+<link rel="icon" type="image/png" href="https://media.discordapp.net/attachments/1506786249233530910/1507316701706846208/VCL_SUMMER_SERIES_2.png?ex=6a12c712&is=6a117592&hm=445a75d6f35719674b5fa8d587812b2c1b656112f4799b06e8a2340d23e387ca&=&format=webp&quality=lossless&width=960&height=960">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --or:#FF6B00;--or2:#FF9A00;--red:#E8192C;--mg:#FF006E;--pk:#FF4D8D;
+  --bg:#080808;--bg2:#0e0e0e;--card:#121212;--card2:#181818;
+  --wh:#FFFFFF;--off:#ccc;--gr:#555;
+  --grad:linear-gradient(135deg,#FF9A00 0%,#FF6B00 40%,#E8192C 70%,#FF006E 100%);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--wh);font-family:'Rajdhani',sans-serif;overflow-x:hidden}
+::selection{background:rgba(255,107,0,0.4)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#000}::-webkit-scrollbar-thumb{background:var(--or)}
+
+/* ── CURSOR ── */
+.cursor{position:fixed;width:8px;height:8px;background:var(--or);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);transition:transform 0.1s;mix-blend-mode:screen}
+.cursor-ring{position:fixed;width:28px;height:28px;border:1px solid rgba(255,107,0,0.5);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:transform 0.15s,width 0.2s,height 0.2s}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:70px;background:rgba(8,8,8,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,107,0,0.12)}
+.nav-brand{display:flex;align-items:center;gap:14px}
+.nav-brand img{display:none}
+.nav-brand-text{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.nav-brand-sub{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:3px;color:#444;margin-top:1px}
+.nav-links{display:flex;gap:36px;list-style:none}
+.nav-links a{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;color:#555;text-decoration:none;text-transform:uppercase;transition:color 0.2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--or);transform:scaleX(0);transition:transform 0.2s}
+.nav-links a:hover{color:var(--or)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{background:var(--grad);border:none;color:#fff;padding:10px 28px;font-family:'Orbitron',monospace;font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;clip-path:polygon(10px 0,100% 0,calc(100% - 10px) 100%,0 100%);transition:opacity 0.2s,transform 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.nav-cta:hover{opacity:0.85;transform:translateY(-1px)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px 40px 80px;text-align:center}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-sun{position:absolute;bottom:30%;left:50%;transform:translateX(-50%);width:700px;height:350px;border-radius:700px 700px 0 0;background:radial-gradient(ellipse at 50% 100%,rgba(255,154,0,0.3) 0%,rgba(255,107,0,0.2) 30%,rgba(232,25,44,0.12) 60%,transparent 90%);filter:blur(60px)}
+.hero-horizon{position:absolute;bottom:30%;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,154,0,0.6),rgba(255,107,0,0.8),rgba(232,25,44,0.6),transparent)}
+.hero-grid{position:absolute;bottom:0;left:0;right:0;height:35%;overflow:hidden}
+.hero-grid svg{width:100%;height:100%}
+.hero-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 20%,rgba(8,8,8,0.7) 80%)}
+.hero-vignette2{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(transparent,var(--bg))}
+.hero-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center}
+.hero-eyebrow{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:6px;color:rgba(255,107,0,0.8);margin-bottom:24px;opacity:0;animation:fadeUp 1s ease 0.2s forwards}
+.hero-logo{width:320px;height:320px;margin:0 auto 28px;object-fit:contain;mix-blend-mode:screen;filter:drop-shadow(0 0 60px rgba(255,107,0,0.7)) drop-shadow(0 0 120px rgba(232,25,44,0.4));opacity:0;animation:fadeUp 1s ease 0.1s forwards,heroFloat 5s ease-in-out 1.2s infinite}
+@keyframes heroFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-14px) scale(1.01)}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,12vw,140px);line-height:0.9;letter-spacing:6px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;opacity:0;animation:fadeUp 1s ease 0.4s forwards}
+.hero-title2{font-family:'Permanent Marker',cursive;font-size:clamp(32px,5vw,60px);color:var(--wh);letter-spacing:3px;margin-top:4px;opacity:0;animation:fadeUp 1s ease 0.6s forwards}
+.hero-line{width:180px;height:1px;background:var(--grad);margin:28px auto;opacity:0;animation:fadeUp 0.8s ease 0.8s forwards}
+.hero-desc{font-size:18px;color:#777;letter-spacing:1px;max-width:520px;line-height:1.7;opacity:0;animation:fadeUp 0.8s ease 1s forwards}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px;opacity:0;animation:fadeUp 0.8s ease 1.2s forwards}
+.btn-main{background:var(--grad);border:none;color:#fff;padding:16px 44px;font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:2px;cursor:pointer;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.btn-main:hover{opacity:0.85;transform:translateY(-2px);filter:brightness(1.1)}
+.btn-ghost{background:transparent;border:1px solid rgba(255,107,0,0.4);color:var(--or);padding:16px 44px;font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:2px;cursor:pointer;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:10px}
+.btn-ghost:hover{background:rgba(255,107,0,0.08);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:56px;justify-content:center;margin-top:60px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s ease 1.4s forwards}
+.stat{text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:52px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.stat-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:#444;margin-top:4px}
+.stat-divider{width:1px;background:rgba(255,107,0,0.15);align-self:stretch;margin:8px 0}
+
+/* ── SECTIONS ── */
+.wrap{max-width:1300px;margin:0 auto;padding:0 48px}
+.sec{padding:110px 0}
+.sec-inner{max-width:1300px;margin:0 auto;padding:0 48px}
+.sec-tag{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:5px;color:var(--or);margin-bottom:14px;display:flex;align-items:center;gap:14px;justify-content:center}
+.sec-tag::before,.sec-tag::after{content:'';flex:0 0 40px;height:1px;background:rgba(255,107,0,0.4)}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,7vw,80px);letter-spacing:3px;line-height:1;text-align:center;margin-bottom:16px}
+.sec-sub{text-align:center;color:#555;font-size:16px;letter-spacing:1px;margin-bottom:64px;max-width:560px;margin-left:auto;margin-right:auto}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+/* ── INFO CARDS ── */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1px;background:rgba(255,107,0,0.1);border:1px solid rgba(255,107,0,0.1)}
+.info-card{background:var(--bg2);padding:36px 32px;transition:background 0.3s}
+.info-card:hover{background:rgba(255,107,0,0.04)}
+.info-card-icon{font-size:28px;margin-bottom:18px;display:block}
+.info-card-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--or);margin-bottom:10px}
+.info-card-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--wh);margin-bottom:10px}
+.info-card-text{font-size:15px;color:#666;line-height:1.7}
+.info-card-text strong{color:#999}
+
+/* ── EQUIPOS ── */
+.teams-sec{background:var(--bg2);border-top:1px solid rgba(255,107,0,0.08);border-bottom:1px solid rgba(255,107,0,0.08)}
+.teams-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.team-card{background:var(--card);border:1px solid rgba(255,107,0,0.1);padding:24px 28px;display:flex;align-items:center;gap:18px;cursor:pointer;position:relative;overflow:hidden;transition:border-color 0.25s,transform 0.25s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px))}
+.team-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,0.06) 0%,transparent 60%);opacity:0;transition:opacity 0.25s}
+.team-card:hover{border-color:rgba(255,107,0,0.5);transform:translateY(-3px)}
+.team-card:hover::after{opacity:1}
+.team-card.tbd{cursor:default;opacity:0.35}
+.team-card.tbd:hover{transform:none;border-color:rgba(255,107,0,0.1)}
+.team-card.tbd::after{display:none}
+.t-logo{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;position:relative;z-index:1;border:1px solid rgba(255,107,0,0.2)}
+.t-info{flex:1;position:relative;z-index:1;min-width:0}
+.t-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.t-meta{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;color:#444;margin-top:3px}
+.t-badge{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;color:var(--or);border:1px solid rgba(255,107,0,0.35);padding:4px 10px;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%);position:relative;z-index:1;white-space:nowrap}
+.t-arrow{color:rgba(255,107,0,0.3);font-size:20px;position:relative;z-index:1;transition:color 0.2s,transform 0.2s}
+.team-card:not(.tbd):hover .t-arrow{color:var(--or);transform:translateX(4px)}
+
+/* ── TEAM MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:800;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity 0.3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:1px solid rgba(255,107,0,0.25);max-width:640px;width:100%;max-height:90vh;overflow-y:auto;position:relative;clip-path:polygon(0 0,calc(100% - 24px) 0,100% 24px,100% 100%,24px 100%,0 calc(100% - 24px));transform:translateY(30px) scale(0.97);transition:transform 0.3s}
+.modal-overlay.open .modal{transform:translateY(0) scale(1)}
+.modal-header{background:linear-gradient(135deg,rgba(255,107,0,0.12) 0%,rgba(232,25,44,0.06) 100%);padding:36px 36px 28px;border-bottom:1px solid rgba(255,107,0,0.12);display:flex;align-items:flex-start;gap:20px}
+.modal-logo{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;border:1px solid rgba(255,107,0,0.3);background:rgba(0,0,0,0.4)}
+.modal-title-block{}
+.modal-team-name{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.modal-tag{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:3px;color:#555;margin-top:4px}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:1px solid rgba(255,107,0,0.2);color:#555;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all 0.2s}
+.modal-close:hover{border-color:var(--or);color:var(--or)}
+.modal-body{padding:32px 36px}
+.modal-section-title{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--or);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(255,107,0,0.1)}
+.modal-stats-row{display:flex;gap:0;margin-bottom:28px;border:1px solid rgba(255,107,0,0.1)}
+.modal-stat{flex:1;padding:18px;text-align:center;border-right:1px solid rgba(255,107,0,0.1)}
+.modal-stat:last-child{border-right:none}
+.modal-stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.modal-stat-label{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;color:#444;margin-top:4px}
+.modal-players{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.player-row{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(255,107,0,0.04);border:1px solid rgba(255,107,0,0.08);clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.player-name{font-family:'Rajdhani',sans-serif;font-weight:700;font-size:16px;color:var(--wh)}
+.player-role{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;color:#555}
+.player-rank{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:1px;padding:3px 10px;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+.rank-imm{background:rgba(255,77,141,0.15);color:var(--pk);border:1px solid rgba(255,77,141,0.3)}
+.rank-asc{background:rgba(0,255,135,0.1);color:#00ff87;border:1px solid rgba(0,255,135,0.25)}
+.rank-dia{background:rgba(100,200,255,0.1);color:#64c8ff;border:1px solid rgba(100,200,255,0.25)}
+.rank-rad{background:rgba(255,220,0,0.12);color:#ffdc00;border:1px solid rgba(255,220,0,0.3)}
+.modal-desc{font-size:15px;color:#555;line-height:1.7;margin-bottom:24px}
+
+/* ── CLASIFICACIÓN TABLE ── */
+.table-wrap{overflow-x:auto;border:1px solid rgba(255,107,0,0.1)}
+.liga-table{width:100%;border-collapse:collapse}
+.liga-table th{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:#444;padding:14px 20px;text-align:left;border-bottom:1px solid rgba(255,107,0,0.12);background:rgba(255,107,0,0.04)}
+.liga-table th:not(:first-child){text-align:center}
+.liga-table td{padding:14px 20px;border-bottom:1px solid rgba(255,107,0,0.06);font-size:15px;font-weight:600;transition:background 0.2s}
+.liga-table td:not(:first-child){text-align:center;font-family:'Orbitron',monospace;font-size:12px;color:#666}
+.liga-table tr:hover td{background:rgba(255,107,0,0.03)}
+.liga-table .pos{font-family:'Bebas Neue',sans-serif;font-size:24px;width:50px}
+.liga-table .pos span{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.liga-table .team-cell{display:flex;align-items:center;gap:14px}
+.liga-table .team-dot{width:10px;height:10px;border-radius:50%}
+.liga-table .tbd-row td{color:#2a2a2a}
+.liga-table .tbd-row .pos span{background:none;-webkit-text-fill-color:#2a2a2a}
+.liga-table .tbd-row .team-cell{opacity:0.2}
+
+/* ── LIGA FASE ── */
+.liga-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.08);margin-bottom:40px}
+.liga-info-cell{background:var(--bg2);padding:28px 32px}
+.liga-info-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--or);margin-bottom:8px}
+.liga-info-val{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--wh)}
+.liga-info-desc{font-size:14px;color:#555;margin-top:4px;line-height:1.5}
+
+/* ── PREMIO ── */
+.prize-hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 40px;background:linear-gradient(180deg,rgba(255,107,0,0.06) 0%,transparent 100%);border:1px solid rgba(255,107,0,0.12);position:relative;overflow:hidden;text-align:center}
+.prize-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;border:1px solid rgba(255,107,0,0.06)}
+.prize-hero::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:340px;height:340px;border-radius:50%;border:1px solid rgba(255,107,0,0.08)}
+.prize-crown{font-size:64px;margin-bottom:20px;position:relative;z-index:1}
+.prize-label{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:6px;color:var(--or);margin-bottom:12px;position:relative;z-index:1}
+.prize-amount{font-family:'Bebas Neue',sans-serif;font-size:120px;line-height:1;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;position:relative;z-index:1;letter-spacing:4px}
+.prize-desc{font-family:'Orbitron',monospace;font-size:11px;letter-spacing:4px;color:#444;margin-top:12px;position:relative;z-index:1}
+.prize-extras{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.08);margin-top:32px}
+.prize-extra-item{background:var(--bg2);padding:24px;text-align:center}
+.prize-extra-icon{font-size:28px;margin-bottom:10px}
+.prize-extra-name{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;color:var(--or)}
+.prize-extra-desc{font-size:13px;color:#555;margin-top:6px}
+
+/* ── DISCORD CTA ── */
+.discord-sec{background:linear-gradient(135deg,rgba(88,101,242,0.08) 0%,rgba(255,107,0,0.06) 100%);border-top:1px solid rgba(88,101,242,0.12);border-bottom:1px solid rgba(88,101,242,0.12);text-align:center;padding:90px 48px}
+.discord-logo{font-size:56px;margin-bottom:20px}
+.discord-title{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:3px;line-height:1;margin-bottom:14px}
+.discord-desc{font-size:17px;color:#666;max-width:500px;margin:0 auto 40px;line-height:1.7}
+.btn-discord{background:#5865F2;border:none;color:#fff;padding:18px 52px;font-family:'Orbitron',monospace;font-size:13px;font-weight:700;letter-spacing:2px;cursor:pointer;clip-path:polygon(14px 0,100% 0,calc(100% - 14px) 100%,0 100%);transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:12px;font-size:14px}
+.btn-discord:hover{background:#4752c4;transform:translateY(-2px);filter:brightness(1.1)}
+
+/* ── TIMELINE / NOTICIAS ── */
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.news-card{background:var(--card2);border:1px solid rgba(255,107,0,0.08);padding:28px;transition:border-color 0.2s,transform 0.2s;clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,0 100%)}
+.news-card:hover{border-color:rgba(255,107,0,0.3);transform:translateY(-2px)}
+.news-date{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:3px;color:var(--or);margin-bottom:12px}
+.news-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:8px;line-height:1.1}
+.news-text{font-size:14px;color:#555;line-height:1.6}
+.news-badge{display:inline-block;font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;padding:3px 10px;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%);margin-bottom:16px}
+.badge-orange{background:rgba(255,107,0,0.15);color:var(--or);border:1px solid rgba(255,107,0,0.3)}
+.badge-blue{background:rgba(88,101,242,0.15);color:#8b97f7;border:1px solid rgba(88,101,242,0.3)}
+.badge-green{background:rgba(0,200,80,0.12);color:#00c850;border:1px solid rgba(0,200,80,0.25)}
+
+/* ── FOOTER ── */
+footer{background:#000;border-top:1px solid rgba(255,107,0,0.08);padding:70px 48px 40px}
+.footer-inner{max-width:1300px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+.footer-brand img{height:60px;mix-blend-mode:screen;filter:drop-shadow(0 0 16px rgba(255,107,0,0.5));margin-bottom:16px}
+.footer-brand-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:4px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.footer-brand-desc{font-size:14px;color:#333;line-height:1.7;max-width:280px}
+.footer-col-title{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--or);margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid rgba(255,107,0,0.1)}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-family:'Rajdhani',sans-serif;font-size:15px;color:#333;text-decoration:none;transition:color 0.2s;letter-spacing:0.5px}
+.footer-links a:hover{color:var(--or)}
+.footer-divider{height:1px;background:rgba(255,107,0,0.06);margin-bottom:32px}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.footer-copy{font-size:13px;color:#222;font-family:'Orbitron',monospace;letter-spacing:1px}
+.footer-socials{display:flex;gap:12px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(255,107,0,0.15);display:flex;align-items:center;justify-content:center;font-size:16px;color:#333;text-decoration:none;transition:all 0.2s;clip-path:polygon(4px 0,100% 0,calc(100% - 4px) 100%,0 100%)}
+.social-btn:hover{border-color:var(--or);color:var(--or);background:rgba(255,107,0,0.08)}
+
+
+/* ── PROFESSIONAL UPGRADES ── */
+body::before{content:'';position:fixed;inset:0;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:9997;opacity:0.4}
+.info-card{border-left:1px solid rgba(255,107,0,0.15);position:relative}
+.info-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,0,0.3),transparent)}
+.hero-eyebrow{text-shadow:0 0 40px rgba(255,107,0,0.5)}
+.sec-tag::before,.sec-tag::after{flex:0 0 60px;opacity:0.6}
+.liga-table th{text-transform:uppercase;border-top:1px solid rgba(255,107,0,0.08)}
+.prize-amount{text-shadow:0 0 80px rgba(255,107,0,0.3)}
+.news-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.news-card{position:relative}
+.news-card:hover::before{transform:scaleX(1)}
+/* Scrollbar refinado */
+::-webkit-scrollbar{width:2px}
+
+/* ── FORM ── */
+.form-wrap{max-width:700px;margin:0 auto}
+.form-card{background:var(--card);border:1px solid rgba(255,107,0,0.15);padding:40px}
+.form-group{margin-bottom:20px}
+.form-label{font-family:'Orbitron',monospace;font-size:9px;letter-spacing:4px;color:var(--or);display:block;margin-bottom:10px}
+.form-label-small{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:2px;color:#555;display:block;margin-bottom:8px}
+.form-input{width:100%;background:#0a0a0a;border:1px solid rgba(255,107,0,0.15);color:var(--wh);padding:14px 18px;font-family:'Rajdhani',sans-serif;font-size:16px;font-weight:600;outline:none;transition:border-color 0.2s;box-sizing:border-box}
+.form-input:focus{border-color:rgba(255,107,0,0.5)}
+.form-input::placeholder{color:#333}
+.players-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.admin-entry{background:var(--card2);border:1px solid rgba(255,107,0,0.1);padding:24px}
+.admin-entry-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.admin-team-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--wh)}
+.admin-captain{font-family:'Orbitron',monospace;font-size:10px;letter-spacing:2px;color:var(--or)}
+.admin-players{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.admin-player-tag{background:rgba(255,107,0,0.08);border:1px solid rgba(255,107,0,0.15);padding:6px 14px;font-family:'Orbitron',monospace;font-size:10px;letter-spacing:1px;color:#999}
+.admin-date{font-family:'Orbitron',monospace;font-size:8px;letter-spacing:1px;color:#333;margin-top:10px}
+@media(max-width:600px){.players-grid{grid-template-columns:1fr}}
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .wrap,.sec-inner{padding:0 20px}
+  .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+  .liga-info-grid{grid-template-columns:1fr}
+  .hero-stats{gap:28px}
+}
+@media(max-width:600px){
+  .footer-top{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .modal-header{flex-direction:column}
+  .modal-stats-row{flex-wrap:wrap}
+  .modal-stat{min-width:50%}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ── MODAL EQUIPO ── -->
+<div class="modal-overlay" id="teamModal">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-header">
+      <div class="modal-logo" id="m-logo"></div>
+      <div class="modal-title-block">
+        <div class="modal-team-name" id="m-name"></div>
+        <div class="modal-tag" id="m-tag"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-section-title">ESTADÍSTICAS</div>
+      <div class="modal-stats-row">
+        <div class="modal-stat"><div class="modal-stat-num" id="m-wins">—</div><div class="modal-stat-label">VICTORIAS</div></div>
+        <div class="modal-stat"><div class="modal-stat-num" id="m-losses">—</div><div class="modal-stat-label">DERROTAS</div></div>
+        <div class="modal-stat"><div class="modal-stat-num" id="m-pts">—</div><div class="modal-stat-label">PUNTOS</div></div>
+        <div class="modal-stat"><div class="modal-stat-num" id="m-wr">—</div><div class="modal-stat-label">WINRATE</div></div>
+      </div>
+      <div class="modal-section-title">ROSTER</div>
+      <div class="modal-players" id="m-players"></div>
+      <div class="modal-section-title">SOBRE EL EQUIPO</div>
+      <div class="modal-desc" id="m-desc"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-brand">
+    <img src="https://media.discordapp.net/attachments/1506786249233530910/1507316701706846208/VCL_SUMMER_SERIES_2.png?ex=6a12c712&is=6a117592&hm=445a75d6f35719674b5fa8d587812b2c1b656112f4799b06e8a2340d23e387ca&=&format=webp&quality=lossless&width=960&height=960" alt="VCL">
+    <div>
+      <div class="nav-brand-text">VCL SUMMER SERIES</div>
+      <div class="nav-brand-sub">VALORANT COMMUNITY LEAGUE</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#equipos">Equipos</a></li>
+    <li><a href="#clasificacion">Liga</a></li>
+    <li><a href="#premios">Premios</a></li>
+    <li><a href="#noticias">Noticias</a></li>
+    <li><a href="#inscripcion">Inscripción</a></li>
+  </ul>
+  <a href="https://discord.gg/Ap6EXMW3X5" target="_blank" class="nav-cta">🎮 UNIRSE</a>
+</nav>
+
+<!-- ── HERO ── -->
+<div id="inicio" class="hero">
+  <div class="hero-bg">
+    <div class="hero-sun"></div>
+    <div class="hero-horizon"></div>
+    <div class="hero-grid">
+      <svg viewBox="0 0 1440 300" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="gl" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="rgba(255,107,0,0.25)"/>
+            <stop offset="100%" stop-color="rgba(255,107,0,0)"/>
+          </linearGradient>
+        </defs>
+        <!-- vertical lines -->
+        <line x1="0" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.12)" stroke-width="0.5"/>
+        <line x1="144" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.1)" stroke-width="0.5"/>
+        <line x1="288" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.08)" stroke-width="0.5"/>
+        <line x1="432" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="576" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.05)" stroke-width="0.5"/>
+        <line x1="720" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.15)" stroke-width="0.8"/>
+        <line x1="864" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.05)" stroke-width="0.5"/>
+        <line x1="1008" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="1152" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.08)" stroke-width="0.5"/>
+        <line x1="1296" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.1)" stroke-width="0.5"/>
+        <line x1="1440" y1="0" x2="720" y2="300" stroke="rgba(255,107,0,0.12)" stroke-width="0.5"/>
+        <!-- horizontal lines -->
+        <line x1="0" y1="30" x2="1440" y2="30" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="0" y1="80" x2="1440" y2="80" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="0" y1="140" x2="1440" y2="140" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="0" y1="210" x2="1440" y2="210" stroke="rgba(255,107,0,0.06)" stroke-width="0.5"/>
+        <line x1="0" y1="290" x2="1440" y2="290" stroke="rgba(255,107,0,0.04)" stroke-width="0.5"/>
+      </svg>
+    </div>
+    <div class="hero-vignette"></div>
+    <div class="hero-vignette2"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">VALORANT COMMUNITY LEAGUE · ESPAÑA</div>
+    <img class="hero-logo" src="https://media.discordapp.net/attachments/1506786249233530910/1507316701706846208/VCL_SUMMER_SERIES_2.png?ex=6a12c712&is=6a117592&hm=445a75d6f35719674b5fa8d587812b2c1b656112f4799b06e8a2340d23e387ca&=&format=webp&quality=lossless&width=960&height=960" alt="VCL Summer Series">
+    <div class="hero-title">VCL SUMMER</div>
+    <div class="hero-title2">Series 2025</div>
+    <div class="hero-line"></div>
+    <div class="hero-desc">La liga comunitaria de Valorant más competitiva del verano. Forma tu equipo, compite semana a semana y lucha por la cima.</div>
+    <div class="hero-btns">
+      <a href="https://discord.gg/Ap6EXMW3X5" target="_blank" class="btn-main">🎮 INSCRIBIRSE AHORA</a>
+      <a href="#clasificacion" class="btn-ghost">VER LA LIGA</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">?</div><div class="stat-label">EQUIPOS</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-num">5v5</div><div class="stat-label">FORMATO</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-num">50€</div><div class="stat-label">PREMIO</div></div>
+      <div class="stat-divider"></div>
+      <div class="stat"><div class="stat-num">?</div><div class="stat-label">JORNADAS</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── INFORMACIÓN ── -->
+<div class="sec" style="background:var(--bg2)">
+<div class="sec-inner reveal">
+  <div class="sec-tag">DETALLES</div>
+  <h2 class="sec-title">INFORMACIÓN DEL TORNEO</h2>
+  <p class="sec-sub">Todo lo que necesitas saber para competir</p>
+  <div class="info-grid">
+    <div class="info-card">
+      <span class="info-card-icon">📅</span>
+      <div class="info-card-label">FECHAS</div>
+      <div class="info-card-title">POR CONFIRMAR</div>
+      <!-- EDITAR: Cambia las fechas cuando las tengas -->
+      <p class="info-card-text">Las fechas de inicio y jornadas se anunciarán pronto en nuestro Discord. Mantente atento a los anuncios.</p>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">🎮</span>
+      <div class="info-card-label">PLATAFORMA</div>
+      <div class="info-card-title">VALORANT PC</div>
+      <p class="info-card-text">Servidor <strong>EU West</strong><br>Formato <strong>5 vs 5</strong><br>Parche vigente del torneo</p>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">📋</span>
+      <div class="info-card-label">INSCRIPCIÓN</div>
+      <div class="info-card-title">DISCORD</div>
+      <p class="info-card-text">Únete al servidor de Discord y sigue los pasos de inscripción. <strong>Plazas limitadas</strong>, no esperes demasiado.</p>
+    </div>
+    <div class="info-card">
+      <span class="info-card-icon">🏆</span>
+      <div class="info-card-label">COMPETICIÓN</div>
+      <div class="info-card-title">LIGA</div>
+      <p class="info-card-text">Formato liga con jornadas semanales. Todos los equipos se enfrentan entre sí. El primero de la tabla gana.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── EQUIPOS ── -->
+<div id="equipos" class="sec teams-sec">
+<div class="sec-inner reveal">
+  <div class="sec-tag">PARTICIPANTES</div>
+  <h2 class="sec-title">EQUIPOS INSCRITOS</h2>
+  <p class="sec-sub">Haz clic en un equipo para ver su información completa</p>
+
+  <!-- EDITAR: Añade/cambia equipos en el JS al final -->
+  <div class="teams-grid" id="teams-grid"></div>
+</div>
+</div>
+
+<!-- ── CLASIFICACIÓN ── -->
+<div id="clasificacion" class="sec" style="background:var(--bg2)">
+<div class="sec-inner reveal">
+  <div class="sec-tag">COMPETICIÓN</div>
+  <h2 class="sec-title">CLASIFICACIÓN DE LA LIGA</h2>
+  <p class="sec-sub">La tabla se actualizará tras cada jornada</p>
+
+  <div class="liga-info-grid">
+    <div class="liga-info-cell">
+      <div class="liga-info-label">SISTEMA DE PUNTOS</div>
+      <div class="liga-info-val">3 · 1 · 0</div>
+      <div class="liga-info-desc">Victoria = 3 pts &nbsp;·&nbsp; Empate = 1 pt &nbsp;·&nbsp; Derrota = 0 pts</div>
+    </div>
+    <div class="liga-info-cell">
+      <div class="liga-info-label">CLASIFICADOS A PLAYOFF</div>
+      <div class="liga-info-val">? EQUIPOS</div>
+      <div class="liga-info-desc">Los primeros de la tabla acceden a la fase final por el título</div>
+    </div>
+    <div class="liga-info-cell">
+      <div class="liga-info-label">JORNADAS</div>
+      <div class="liga-info-val">POR DEFINIR</div>
+      <div class="liga-info-desc">Dependiente del número final de equipos inscritos</div>
+    </div>
+    <div class="liga-info-cell">
+      <div class="liga-info-label">DÍA DE PARTIDOS</div>
+      <div class="liga-info-val">POR CONFIRMAR</div>
+      <!-- EDITAR: Cambia el día cuando lo sepas -->
+      <div class="liga-info-desc">Se anunciará próximamente en Discord</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table class="liga-table">
+      <thead>
+        <tr>
+          <th style="width:50px">#</th>
+          <th>EQUIPO</th>
+          <th>PJ</th><th>V</th><th>E</th><th>D</th>
+          <th>GF</th><th>GC</th><th>DIF</th>
+          <th>PTS</th>
+        </tr>
+      </thead>
+      <tbody id="liga-tbody"></tbody>
+    </table>
+  </div>
+</div>
+</div>
+
+<!-- ── PREMIOS ── -->
+<div id="premios" class="sec">
+<div class="sec-inner reveal">
+  <div class="sec-tag">RECOMPENSAS</div>
+  <h2 class="sec-title">PREMIOS</h2>
+  <p class="sec-sub">El campeón se lleva todo — ¿serás tú?</p>
+  <div class="prize-hero">
+    <div class="prize-crown">🏆</div>
+    <div class="prize-label">CAMPEÓN DE LA VCL SUMMER SERIES</div>
+    <div class="prize-amount">50€</div>
+    <div class="prize-desc">PARA EL EQUIPO GANADOR</div>
+  </div>
+  <div class="prize-extras">
+    <div class="prize-extra-item">
+      <div class="prize-extra-icon">🎖️</div>
+      <div class="prize-extra-name">TROFEO DIGITAL</div>
+      <div class="prize-extra-desc">Badge exclusivo de campeón para todos los perfiles</div>
+    </div>
+    <div class="prize-extra-item">
+      <div class="prize-extra-icon">📣</div>
+      <div class="prize-extra-name">SHOUTOUT OFICIAL</div>
+      <div class="prize-extra-desc">Anuncio en todas las redes del torneo</div>
+    </div>
+    <div class="prize-extra-item">
+      <div class="prize-extra-icon">🎙️</div>
+      <div class="prize-extra-name">ENTREVISTA</div>
+      <div class="prize-extra-desc">Entrevista al equipo campeón publicada en el Discord</div>
+    </div>
+    <div class="prize-extra-item">
+      <div class="prize-extra-icon">⭐</div>
+      <div class="prize-extra-name">ROL EXCLUSIVO</div>
+      <div class="prize-extra-desc">Rol de campeón permanente en el Discord de la liga</div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── NOTICIAS ── -->
+<div id="noticias" class="sec" style="background:var(--bg2)">
+<div class="sec-inner reveal">
+  <div class="sec-tag">ACTUALIDAD</div>
+  <h2 class="sec-title">ÚLTIMAS NOTICIAS</h2>
+  <p class="sec-sub">Mantente al día con todo lo que pasa en la VCL</p>
+  <!-- EDITAR: Añade/cambia noticias aquí -->
+  <div class="news-grid">
+    <div class="news-card">
+      <span class="news-badge badge-orange">ANUNCIO</span>
+      <div class="news-date">MAYO 2025</div>
+      <div class="news-title">¡ARRANCA LA VCL SUMMER SERIES!</div>
+      <p class="news-text">Abrimos inscripciones para la primera edición de la VCL Summer Series. Únete al Discord para registrar tu equipo antes de que se llenen las plazas.</p>
+    </div>
+    <div class="news-card">
+      <span class="news-badge badge-blue">FORMATO</span>
+      <div class="news-date">PRÓXIMAMENTE</div>
+      <div class="news-title">REGLAS Y FORMATO OFICIAL</div>
+      <p class="news-text">El reglamento completo y el formato detallado de la liga se publicarán en el Discord una vez se cierre el período de inscripción.</p>
+    </div>
+    <div class="news-card">
+      <span class="news-badge badge-green">INSCRIPCIÓN</span>
+      <div class="news-date">ABIERTO AHORA</div>
+      <div class="news-title">PLAZAS LIMITADAS DISPONIBLES</div>
+      <p class="news-text">Las inscripciones están abiertas. Accede al Discord, abre un ticket y registra tu equipo. El cupo es limitado, ¡no te quedes fuera!</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── DISCORD CTA ── -->
+<div class="discord-sec reveal">
+  <div class="discord-logo">🎮</div>
+  <h2 class="discord-title">ÚNETE A LA COMUNIDAD</h2>
+  <p class="discord-desc">Toda la información, anuncios, resultados y coordinación de partidos se gestiona en nuestro servidor de Discord. ¡No te lo pierdas!</p>
+  <a href="https://discord.gg/Ap6EXMW3X5" target="_blank" class="btn-discord">
+    <svg width="22" height="22" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+    UNIRSE AL DISCORD
+  </a>
+</div>
+
+<!-- ── FOOTER ── -->
+
+<!-- ── INSCRIPCIÓN ── -->
+<div id="inscripcion" class="sec" style="background:var(--bg2)">
+<div class="sec-inner reveal">
+  <div class="sec-tag">ÚNETE</div>
+  <h2 class="sec-title">INSCRIBIR EQUIPO</h2>
+  <p class="sec-sub">Rellena el formulario y tu inscripción llegará directamente al organizador</p>
+  <div class="form-wrap">
+    <div class="form-card">
+      <div class="form-group">
+        <label class="form-label">NOMBRE DEL EQUIPO</label>
+        <input type="text" id="f-team" class="form-input" placeholder="Ej: Phoenix Rising" maxlength="30">
+      </div>
+      <div class="form-group">
+        <label class="form-label">NOMBRE DEL CAPITÁN</label>
+        <input type="text" id="f-captain" class="form-input" placeholder="Tu nombre de usuario" maxlength="30">
+      </div>
+      <div class="form-label" style="margin-bottom:14px;margin-top:8px">RIOT IDs DE LOS 5 JUGADORES</div>
+      <div class="players-grid">
+        <div class="form-group">
+          <label class="form-label-small">JUGADOR 1 (Capitán)</label>
+          <input type="text" id="p1" class="form-input" placeholder="Nombre#TAG">
+        </div>
+        <div class="form-group">
+          <label class="form-label-small">JUGADOR 2</label>
+          <input type="text" id="p2" class="form-input" placeholder="Nombre#TAG">
+        </div>
+        <div class="form-group">
+          <label class="form-label-small">JUGADOR 3</label>
+          <input type="text" id="p3" class="form-input" placeholder="Nombre#TAG">
+        </div>
+        <div class="form-group">
+          <label class="form-label-small">JUGADOR 4</label>
+          <input type="text" id="p4" class="form-input" placeholder="Nombre#TAG">
+        </div>
+        <div class="form-group">
+          <label class="form-label-small">JUGADOR 5</label>
+          <input type="text" id="p5" class="form-input" placeholder="Nombre#TAG">
+        </div>
+        <div class="form-group">
+          <label class="form-label-small">SUPLENTE (opcional)</label>
+          <input type="text" id="p6" class="form-input" placeholder="Nombre#TAG">
+        </div>
+      </div>
+      <div id="form-msg" style="display:none;margin-top:16px;padding:14px 20px;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:2px;text-align:center"></div>
+      <button onclick="submitTeam()" class="btn-main" style="width:100%;margin-top:24px;justify-content:center;font-size:13px;clip-path:none;padding:18px">
+        ✅ ENVIAR INSCRIPCIÓN
+      </button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ── PANEL ADMIN ── -->
+<div id="admin-panel" class="sec" style="background:var(--bg);display:none">
+<div class="sec-inner">
+  <div class="sec-tag">ORGANIZADOR</div>
+  <h2 class="sec-title">INSCRIPCIONES RECIBIDAS</h2>
+  <p class="sec-sub">Solo visible para ti — panel de administración</p>
+  <div id="admin-list" style="display:flex;flex-direction:column;gap:16px"></div>
+  <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+    <button onclick="exportCSV()" class="btn-ghost" style="clip-path:none">📥 EXPORTAR CSV</button>
+    <button onclick="clearAll()" style="background:rgba(232,25,44,0.15);border:1px solid rgba(232,25,44,0.3);color:#e8192c;padding:16px 32px;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:2px;cursor:pointer">🗑️ BORRAR TODO</button>
+  </div>
+</div>
+</div>
+
+<!-- ── ADMIN LOGIN ── -->
+<div id="admin-login" style="position:fixed;bottom:20px;right:20px;z-index:600">
+  <button onclick="toggleAdmin()" style="background:rgba(8,8,8,0.9);border:1px solid rgba(255,107,0,0.2);color:#333;padding:10px 16px;font-family:'Orbitron',monospace;font-size:9px;letter-spacing:2px;cursor:pointer;backdrop-filter:blur(10px)">⚙ ADMIN</button>
+</div>
+<div id="admin-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:700;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--bg2);border:1px solid rgba(255,107,0,0.3);padding:48px;width:360px;text-align:center">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;margin-bottom:24px">ACCESO ADMIN</div>
+    <input type="password" id="admin-pass" placeholder="Contraseña" style="width:100%;background:#111;border:1px solid rgba(255,107,0,0.2);color:#fff;padding:14px 18px;font-family:'Orbitron',monospace;font-size:12px;margin-bottom:16px;outline:none;box-sizing:border-box">
+    <button onclick="checkAdmin()" style="width:100%;background:var(--grad);border:none;color:#fff;padding:14px;font-family:'Orbitron',monospace;font-size:11px;letter-spacing:2px;cursor:pointer">ENTRAR</button>
+    <button onclick="closeAdminModal()" style="margin-top:12px;background:none;border:none;color:#444;font-family:'Orbitron',monospace;font-size:10px;cursor:pointer;letter-spacing:1px">CANCELAR</button>
+  </div>
+</div>
+
+<footer>
+<div class="footer-inner">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="https://media.discordapp.net/attachments/1506786249233530910/1507316701706846208/VCL_SUMMER_SERIES_2.png?ex=6a12c712&is=6a117592&hm=445a75d6f35719674b5fa8d587812b2c1b656112f4799b06e8a2340d23e387ca&=&format=webp&quality=lossless&width=960&height=960" alt="VCL">
+      <div class="footer-brand-name">VCL SUMMER SERIES</div>
+      <!-- EDITAR: Tu descripción -->
+      <p class="footer-brand-desc">Torneo comunitario de Valorant organizado con pasión. Competición, comunidad y diversión en una sola liga.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">NAVEGACIÓN</div>
+      <ul class="footer-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#equipos">Equipos</a></li>
+        <li><a href="#clasificacion">Liga</a></li>
+        <li><a href="#premios">Premios</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+    <li><a href="#inscripcion">Inscripción</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">DISCORD</div>
+      <ul class="footer-links">
+        <!-- EDITAR: Pon tus links reales -->
+        <li><a href="https://discord.gg/Ap6EXMW3X5" target="_blank">Discord</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">TORNEO</div>
+      <ul class="footer-links">
+        <li><a href="#">Reglamento</a></li>
+        <li><a href="#">Inscripción</a></li>
+        <li><a href="#">Resultados</a></li>
+        <li><a href="#">Contacto</a></li>
+        <!-- EDITAR: Añade más links útiles -->
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    <!-- EDITAR: Tu nombre/organización -->
+    <div class="footer-copy">© 2025 VCL SUMMER SERIES · TODOS LOS DERECHOS RESERVADOS</div>
+    <div class="footer-socials">
+      <a href="https://discord.gg/Ap6EXMW3X5" target="_blank" class="social-btn" title="Discord">
+        <svg width="16" height="16" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+</footer>
+
+<script>
+// ──────────────────────────────────────
+// EDITAR: DATOS DE EQUIPOS
+// Para añadir un equipo: copia un objeto y cambia los campos
+// Para marcar como TBD (por confirmar): tbd: true
+// ──────────────────────────────────────
+const TEAMS = [
+  {
+    id: 1, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'GRUPO A · SLOT 1',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito. ¡Podría ser el tuyo!',
+    players: []
+  },
+  {
+    id: 2, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'GRUPO A · SLOT 2',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito. ¡Podría ser el tuyo!',
+    players: []
+  },
+  {
+    id: 3, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 3',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  },
+  {
+    id: 4, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 4',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  },
+  {
+    id: 5, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 5',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  },
+  {
+    id: 6, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 6',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  },
+  {
+    id: 7, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 7',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  },
+  {
+    id: 8, tbd: true,
+    emoji: '❓', color: 'rgba(80,80,80,0.3)',
+    name: 'POR CONFIRMAR', tag: 'SLOT 8',
+    wins: '?', losses: '?', pts: '?', wr: '?',
+    desc: 'Este equipo aún no se ha inscrito.',
+    players: []
+  }
+];
+// ──────────────────────────────────────
+// EJEMPLO DE EQUIPO REAL (descomenta y rellena cuando tengas equipos):
+/*
+{
+  id: 9, tbd: false,
+  emoji: '🔥', color: 'rgba(255,107,0,0.2)',
+  name: 'NOMBRE EQUIPO', tag: 'GRUPO A',
+  wins: '0', losses: '0', pts: '0', wr: '—',
+  desc: 'Descripción del equipo. Estilo de juego, historia, etc.',
+  players: [
+    { name: 'Jugador1', role: 'Duelista', rank: 'Inmortal 2', rankClass: 'rank-imm' },
+    { name: 'Jugador2', role: 'Controlador', rank: 'Ascendente 3', rankClass: 'rank-asc' },
+    { name: 'Jugador3', role: 'Iniciador', rank: 'Diamante 3', rankClass: 'rank-dia' },
+    { name: 'Jugador4', role: 'Centinela', rank: 'Inmortal 1', rankClass: 'rank-imm' },
+    { name: 'Jugador5', role: 'Flex', rank: 'Radiante', rankClass: 'rank-rad' },
+  ]
+}
+*/
+// ──────────────────────────────────────
+
+// Build teams grid
+const grid = document.getElementById('teams-grid');
+TEAMS.forEach(t => {
+  const card = document.createElement('div');
+  card.className = 'team-card' + (t.tbd ? ' tbd' : '');
+  card.innerHTML = `
+    <div class="t-logo" style="background:${t.color}">${t.emoji}</div>
+    <div class="t-info">
+      <div class="t-name">${t.name}</div>
+      <div class="t-meta">${t.tag}</div>
+    </div>
+    ${!t.tbd ? '<div class="t-badge">VER</div><div class="t-arrow">›</div>' : ''}
+  `;
+  if (!t.tbd) card.addEventListener('click', () => openModal(t));
+  grid.appendChild(card);
+});
+
+// Build liga table
+const tbody = document.getElementById('liga-tbody');
+TEAMS.forEach((t, i) => {
+  const tr = document.createElement('tr');
+  tr.className = t.tbd ? 'tbd-row' : '';
+  tr.innerHTML = `
+    <td class="pos"><span>${i + 1}</span></td>
+    <td><div class="team-cell">
+      <div class="team-dot" style="background:${t.tbd ? '#2a2a2a' : t.color.replace('0.2','0.8').replace('0.3','0.8')}"></div>
+      <span>${t.name}</span>
+    </div></td>
+    <td>—</td><td>—</td><td>—</td><td>—</td>
+    <td>—</td><td>—</td><td>—</td>
+    <td style="color:${t.tbd ? '#2a2a2a' : 'var(--or)'}">—</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// Modal
+function openModal(t) {
+  document.getElementById('m-logo').textContent = t.emoji;
+  document.getElementById('m-logo').style.background = t.color;
+  document.getElementById('m-name').textContent = t.name;
+  document.getElementById('m-tag').textContent = t.tag;
+  document.getElementById('m-wins').textContent = t.wins;
+  document.getElementById('m-losses').textContent = t.losses;
+  document.getElementById('m-pts').textContent = t.pts;
+  document.getElementById('m-wr').textContent = t.wr;
+  document.getElementById('m-desc').textContent = t.desc;
+  const pl = document.getElementById('m-players');
+  pl.innerHTML = '';
+  if (t.players.length === 0) {
+    pl.innerHTML = '<div style="color:#333;font-size:14px;font-family:Orbitron,monospace;letter-spacing:2px;text-align:center;padding:20px">ROSTER POR CONFIRMAR</div>';
+  } else {
+    t.players.forEach(p => {
+      pl.innerHTML += `<div class="player-row">
+        <div><div class="player-name">${p.name}</div><div class="player-role">${p.role}</div></div>
+        <div class="player-rank ${p.rankClass}">${p.rank}</div>
+      </div>`;
+    });
+  }
+  document.getElementById('teamModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('teamModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('teamModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+// Custom cursor
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a,button,.team-card:not(.tbd)').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width = '50px'; ring.style.height = '50px'; cur.style.transform = 'translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave', () => { ring.style.width = '28px'; ring.style.height = '28px'; cur.style.transform = 'translate(-50%,-50%) scale(1)'; });
+});
+
+// Smooth nav
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+// Nav active state on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) cur = s.id; });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--or)' : '';
+  });
+});
+
+// ── INSCRIPCIÓN ──
+const ADMIN_PASSWORD = 'vcl2025'; // CAMBIA ESTA CONTRASEÑA
+
+function submitTeam() {
+  const team = document.getElementById('f-team').value.trim();
+  const captain = document.getElementById('f-captain').value.trim();
+  const p1 = document.getElementById('p1').value.trim();
+  const p2 = document.getElementById('p2').value.trim();
+  const p3 = document.getElementById('p3').value.trim();
+  const p4 = document.getElementById('p4').value.trim();
+  const p5 = document.getElementById('p5').value.trim();
+  const p6 = document.getElementById('p6').value.trim();
+  const msg = document.getElementById('form-msg');
+
+  if (!team || !captain || !p1 || !p2 || !p3 || !p4 || !p5) {
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(232,25,44,0.1)';
+    msg.style.border = '1px solid rgba(232,25,44,0.3)';
+    msg.style.color = '#e8192c';
+    msg.textContent = '⚠ RELLENA TODOS LOS CAMPOS OBLIGATORIOS';
+    return;
+  }
+
+  // Check if team name already exists
+  const existing = JSON.parse(localStorage.getItem('vcl_teams') || '[]');
+  if (existing.some(t => t.team.toLowerCase() === team.toLowerCase())) {
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(232,25,44,0.1)';
+    msg.style.border = '1px solid rgba(232,25,44,0.3)';
+    msg.style.color = '#e8192c';
+    msg.textContent = '⚠ YA EXISTE UN EQUIPO CON ESE NOMBRE';
+    return;
+  }
+
+  const entry = {
+    team, captain,
+    players: [p1, p2, p3, p4, p5, p6].filter(Boolean),
+    date: new Date().toLocaleString('es-ES')
+  };
+
+  existing.push(entry);
+  localStorage.setItem('vcl_teams', JSON.stringify(existing));
+
+  msg.style.display = 'block';
+  msg.style.background = 'rgba(0,200,80,0.08)';
+  msg.style.border = '1px solid rgba(0,200,80,0.3)';
+  msg.style.color = '#00c850';
+  msg.textContent = '✅ INSCRIPCIÓN ENVIADA CORRECTAMENTE — ¡BUENA SUERTE!';
+
+  // Clear form
+  ['f-team','f-captain','p1','p2','p3','p4','p5','p6'].forEach(id => document.getElementById(id).value = '');
+}
+
+// ── ADMIN ──
+let adminOpen = false;
+
+function toggleAdmin() {
+  const modal = document.getElementById('admin-modal');
+  modal.style.display = adminOpen ? 'none' : 'flex';
+  adminOpen = !adminOpen;
+}
+
+function closeAdminModal() {
+  document.getElementById('admin-modal').style.display = 'none';
+  adminOpen = false;
+}
+
+function checkAdmin() {
+  const pass = document.getElementById('admin-pass').value;
+  if (pass === ADMIN_PASSWORD) {
+    document.getElementById('admin-modal').style.display = 'none';
+    adminOpen = false;
+    document.getElementById('admin-panel').style.display = 'block';
+    document.getElementById('admin-panel').scrollIntoView({behavior:'smooth'});
+    renderAdmin();
+  } else {
+    document.getElementById('admin-pass').style.borderColor = 'rgba(232,25,44,0.5)';
+    setTimeout(() => document.getElementById('admin-pass').style.borderColor = '', 1000);
+  }
+}
+
+document.getElementById('admin-pass').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkAdmin();
+});
+
+function renderAdmin() {
+  const teams = JSON.parse(localStorage.getItem('vcl_teams') || '[]');
+  const list = document.getElementById('admin-list');
+  if (teams.length === 0) {
+    list.innerHTML = '<div style="font-family:Orbitron,monospace;font-size:11px;letter-spacing:2px;color:#333;text-align:center;padding:40px">SIN INSCRIPCIONES AÚN</div>';
+    return;
+  }
+  list.innerHTML = teams.map((t, i) => `
+    <div class="admin-entry">
+      <div class="admin-entry-header">
+        <div>
+          <div class="admin-team-name">${t.team}</div>
+          <div class="admin-captain">CAPITÁN: ${t.captain}</div>
+        </div>
+        <button onclick="deleteTeam(${i})" style="background:rgba(232,25,44,0.1);border:1px solid rgba(232,25,44,0.2);color:#e8192c;padding:8px 16px;font-family:Orbitron,monospace;font-size:9px;letter-spacing:1px;cursor:pointer">✕ ELIMINAR</button>
+      </div>
+      <div class="admin-players">
+        ${t.players.map((p,j) => `<div class="admin-player-tag">${j===0?'⭐ ':''}${p}</div>`).join('')}
+      </div>
+      <div class="admin-date">Inscrito: ${t.date}</div>
+    </div>
+  `).join('');
+}
+
+function deleteTeam(i) {
+  const teams = JSON.parse(localStorage.getItem('vcl_teams') || '[]');
+  teams.splice(i, 1);
+  localStorage.setItem('vcl_teams', JSON.stringify(teams));
+  renderAdmin();
+}
+
+function clearAll() {
+  if (confirm('¿Borrar TODAS las inscripciones?')) {
+    localStorage.removeItem('vcl_teams');
+    renderAdmin();
+  }
+}
+
+function exportCSV() {
+  const teams = JSON.parse(localStorage.getItem('vcl_teams') || '[]');
+  if (!teams.length) return;
+  let csv = 'Equipo,Capitán,J1,J2,J3,J4,J5,Suplente,Fecha\n';
+  teams.forEach(t => {
+    const ps = [...t.players, ...Array(6).fill('')].slice(0,6);
+    csv += `"${t.team}","${t.captain}",${ps.map(p=>`"${p}"`).join(',')},"${t.date}"\n`;
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'VCL_inscripciones.csv';
+  a.click();
+}
+
+</script>
+</body>
+</html>
